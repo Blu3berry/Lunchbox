@@ -35,48 +35,37 @@ int realShit(vector<int> vec,int max){
 }
 
 vector<int> simplify(int *p,int length){
-    bool neg=0;
-    bool pos=1;
-    bool prev=0;
-    int sum=0;
+    int sum = 0;
     vector<int> bar;
-    for(int i=0;i<length;i++){
-        if (*(p+i)<0){
-            neg = 1;
-            pos = 0;
-        }if(*(p+i)>0){
-            neg=0;
-            pos=1;
-        }
-        if(i==0){
-                sum = *(p);
 
-            prev= sum < 0 ? 0 : 1;
-        }
-        if((!prev)&&neg){
-            sum +=*(p+i);
-        }else if((prev&&pos && i!=0)){
-            sum+=*(p+i);
-        }else if(prev&&neg&& i!=0){
-            prev=0;
-            bar.push_back(sum);
-            sum =*(p+i);
-        }else if(!prev&&pos&& i!=0){
-            prev=1;
-            bar.push_back(sum);
-            sum=*(p+i);
+    for (int i = 0; i < length; i++) {
+        int act = *(p + i);                         // 15,-17, 20, 5, 40, -10
+        if (sum == 0) {
+            sum += act;
+        } else if (sum > 0) {
+            if (act >= 0) {
+                sum += act;
+            } else {
+                bar.push_back(sum);
+                sum = act;
+
+            }
+
+        } else if (sum < 0) {
+            if (act < 0) {
+                sum += act;
+            } else {
+                bar.push_back(sum);
+                sum = act;
+            }
+
         }
 
+    }
 
-    }
-    bar.push_back(sum);
-    if (bar.at(0)<=0){
-        bar.erase(bar.begin()+0);
-    }
-    if(bar.back()<=0){
-        bar.pop_back();
+    if (sum > 0) bar.push_back(sum);
+    if (bar.at(0) < 0) bar.erase(bar.begin() + 0);
 
-    }
 
     return bar;
 }
