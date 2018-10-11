@@ -11,8 +11,10 @@ iostream
 -
 vector
 -
-list
+stdio.h
 -
-rpcndr.h
+stdlib.h
+-
+time.h
 -
 

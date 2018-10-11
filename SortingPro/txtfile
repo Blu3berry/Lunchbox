@@ -1,0 +1,50 @@
+int realShit(vector<int> vec,int max){
+    int max0=0;
+    int max1=0;
+    int max2=0;
+    int supermax =vec.front();
+
+
+    while(vec.size()>2){
+        max1 = vec.front();
+        //max2 = vec.at(1)+vec.at(2);//hier isder badboii
+        if (max1>max){
+            max=max1;
+        }
+        if(max2>=0){
+            max1+= max2;
+            vec.erase(vec.begin(),vec.begin()+3);
+            vec.insert(vec.begin(),max1);
+        }else {
+            int start =3;
+            while (max2<0 &&max2+max1>0 && start<=vec.size()){
+                max2+=vec.at(start);
+                start++;
+            }
+            if(max2>=0){
+                vec.begin()+=max2;
+                vec.erase(vec.begin()+1,vec.begin()+(start));
+            }else if(max2+max1<=0){
+                vec.erase(vec.begin(),vec.begin()+(start+1));
+                if(max0<=max1) {
+                    max0 = max1;
+                }
+            }
+
+        }
+    }
+
+    if(max1>max0){
+        max0=max1;
+    }
+
+    if(max0>max){
+        max=max0;
+    }
+
+    for (int i = 0;i<vec.size(); i++){
+        cout << vec.at(i) << " ";
+    }
+    cout <<endl <<max2<<"sumsum"<<endl;
+    cout<<endl<<"hier"<<endl;
+    return max;
